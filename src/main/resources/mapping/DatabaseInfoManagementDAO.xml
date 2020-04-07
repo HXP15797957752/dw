@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxp.dao.DatabaseInfoManagementDAO">
+    <resultMap id="BaseResultMap" type="com.hxp.vo.DatabaseInfoVO">
+        <result column="id" property="id"/>
+        <result column="database_description" property="databaseDescription"/>
+        <result column="ip" property="ip"/>
+        <result column="port" property="port"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="ctime" property="ctime"/>
+        <result column="mtime" property="mtime"/>
+    </resultMap>
+
+    <sql id="table_name">
+        database_info
+    </sql>
+
+    <sql id="base_column_list">
+        id,database_description,ip,port,username,password,ctime,mtime
+    </sql>
+
+    <sql id="insert_columns">
+        (database_description,ip,port,username,password,ctime,mtime)
+    </sql>
+
+    <insert id="addDatabaseInfo" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        <include refid="table_name"/>
+        <include refid="insert_columns"/>
+        values
+        <foreach collection="list" item="dt" open="(" separator="),(" close=")">
+        #{dt.databaseDescription},#{dt.ip},
+        #{dt.port},#{dt.username}, #{dt.password}, current_time
+        ,current_time
+        </foreach>
+    </insert>
+
+    <select id="queryDatabaseInfoList" resultMap="BaseResultMap">
+        select
+        <include refid="base_column_list"/>
+        from
+        <include refid="table_name"/>
+    </select>
+
+</mapper>

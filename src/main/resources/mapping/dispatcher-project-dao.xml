@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxp.dao.DispatcherProjectDAO">
+        <resultMap id="BaseResultMap" type="com.hxp.vo.DispatcherProjectVO">
+                <result column="id" property="id"/>
+                <result column="username" property="username"/>
+                <result column="job_name" property="jobName"/>
+                <result column="main_jar" property="mainJar"/>
+                <result column="dependency_jar" property="dependencyJar"/>
+                <result column="main_class" property="mainClass"/>
+                <result column="job_parameter" property="jobParameter"/>
+                <result column="finished_notify" property="finishedNotify"/>
+                <result column="ctime" property="ctime"/>
+                <result column="mtime" property="mtime"/>
+        </resultMap>
+        <sql id="table_name">
+                dispatcher_project
+        </sql>
+        <sql id="base_column_list">
+            id,username,job_name,main_jar,dependency_jar,main_class,job_parameter,finished_notify,ctime,mtime
+        </sql>
+
+        <sql id="insert_columns">
+            (username,job_name,main_jar,dependency_jar,main_class,job_parameter,finished_notify,ctime,mtime)
+        </sql>
+        <insert id="createDispatcherProject" useGeneratedKeys="true" keyProperty="id">
+                insert into
+                <include refid="table_name"/>
+                <include refid="insert_columns" />
+                values(
+                #{username},#{jobName},#{mainJar},#{dependencyJar},#{mainClass},#{jobParameter},#{finishedNotify},current_time,current_time
+                )
+        </insert>
+
+        <select id="queryDispatcherProjectList" resultMap="BaseResultMap">
+                select
+                <include refid="base_column_list"/>
+                from
+                <include refid="table_name"/>
+
+        </select>
+</mapper>

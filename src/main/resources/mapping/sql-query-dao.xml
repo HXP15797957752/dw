@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxp.dao.SqlQueryDAO">
+
+        <resultMap id="BaseResultMap" type="com.hxp.vo.SqlHistory">
+                <result column="id" property="id"/>
+                <result column="sql" property="sql"/>
+                <result column="username" property="username"/>
+                <result column="status" property="status"/>
+                <result column="ctime" property="ctime"/>
+                <result column="mtime" property="mtime"/>
+        </resultMap>
+
+        <sql id="table_name">
+            sql_history
+        </sql>
+        <sql id="base_column_list">
+            id,sql,username,status.ctime,ctime
+        </sql>
+
+        <sql id="insert_columns">
+            sql,username,status.ctime,ctime
+        </sql>
+
+        <!--<select id="checkTable">
+                select count(*) from information_schema.schemata where schema_name = #{tablename}
+        </select>
+
+        <select id="checkDatabase" >
+                select count(*) from information_schema.all_tables where table_name=#{tablename}
+        </select>-->
+
+        <insert id="insertSql">
+                insert into
+                <include refid="table_name"/>
+                <include refid="insert_columns"/>
+                vales(
+                #{},#{}
+                )
+        </insert>
+</mapper>
