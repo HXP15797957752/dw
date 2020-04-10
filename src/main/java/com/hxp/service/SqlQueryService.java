@@ -1,5 +1,7 @@
 package com.hxp.service;
 
+import com.hxp.vo.SqlHistory;
+
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public interface SqlQueryService {
      * @param sql
      * @return
      */
-    int insertSql(String sql);
+    int insertSql(SqlHistory sql);
 
     /**
      * 执行SQL spark任务

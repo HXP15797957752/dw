@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dashboard V.1 | Kiaalap - Kiaalap Admin Template</title>
+    <title>SQL查询历史</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -1410,7 +1410,7 @@
                                         <td th:text="${item.ctime}"></td>
                                         <td th:text="${item.username}"></td>
                                         <td th:text="${item.sql}"> </td>
-                                        <td th:text="${item.status}"></td>
+                                        <td th:text="${item.status}==0?成功:失败"></td>
                                         <!--<td>-->
                                             <!--<button data-toggle="tooltip" title="编辑" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>-->
                                             <!--<button data-toggle="tooltip" title="删除" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>-->

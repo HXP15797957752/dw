@@ -4,6 +4,7 @@ package com.hxp.service.impl;
 import com.alibaba.druid.sql.SQLUtils;
 import com.hxp.dao.SqlQueryDAO;
 import com.hxp.service.SqlQueryService;
+import com.hxp.vo.SqlHistory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class SqlQueryServiceImpl implements SqlQueryService {
     }
 
     @Override
-    public int insertSql(String sql){
+    public int insertSql(SqlHistory sql){
         int  result = sqlQueryDAO.insertSql(sql);
         return result;
     }

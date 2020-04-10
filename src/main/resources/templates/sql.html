@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Code Editor | Kiaalap - Kiaalap Admin Template</title>
+    <title>SQL查询</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -956,9 +956,10 @@
                     <div class="col-lg-12 col-md-6 col-sm-6 col-xs-12">
                         <div class="code-editor-single responsive-mg-b-30">
                             <!--<h2>Code Editor Style One</h2>-->
+
                             <button type="button" class="btn btn-default dropdown-toggle"  aria-haspopup="true" aria-expanded="false">格式化</button>
                             <button type="button" class="btn btn-default dropdown-toggle"  aria-haspopup="true" aria-expanded="false">检查</button>
-                            <button type="button" class="btn btn-info dropdown-toggle"  aria-haspopup="true" aria-expanded="false">执行</button>
+                            <button id="btn" type="button" class="btn btn-info dropdown-toggle"  aria-haspopup="true" aria-expanded="false">执行</button>
                             <a th:href="@{/sqlquery/queryall}">SQL查询记录</a>
                             <textarea id="code1">
 	<script>
@@ -1023,6 +1024,9 @@ Archer Log: log finish, executor node: 10.69.0.33, end time: 2020-03-28 15:42:53
         </div>-->
     </div>
 
+    <script>
+
+    </script>
     <!-- jquery
 		============================================ -->
     <script th:src="@{/js/vendor/jquery-1.12.4.min.js}"></script>

@@ -5,7 +5,7 @@
 
         <resultMap id="BaseResultMap" type="com.hxp.vo.SqlHistory">
                 <result column="id" property="id"/>
-                <result column="sql" property="sql"/>
+                <result column="sql_context" property="sql"/>
                 <result column="username" property="username"/>
                 <result column="status" property="status"/>
                 <result column="ctime" property="ctime"/>
@@ -16,11 +16,11 @@
             sql_history
         </sql>
         <sql id="base_column_list">
-            id,sql,username,status.ctime,ctime
+            id,sql_context,username,status,ctime,mtime
         </sql>
 
         <sql id="insert_columns">
-            sql,username,status.ctime,ctime
+            sql_context,username,status,ctime,mtime
         </sql>
 
         <!--<select id="checkTable">
@@ -31,12 +31,18 @@
                 select count(*) from information_schema.all_tables where table_name=#{tablename}
         </select>-->
 
-        <insert id="insertSql">
+        <select id="querySqlAll" resultMap="BaseResultMap">
+                select
+                <include refid="base_column_list"/>
+                from
+                <include refid="table_name"/>
+        </select>
+        <insert id="insertSql" useGeneratedKeys="true" keyProperty="id">
                 insert into
                 <include refid="table_name"/>
                 <include refid="insert_columns"/>
-                vales(
-                #{},#{}
+                values(
+                #{sql},#{username},#{status},current_timestamp ,current_timestamp
                 )
         </insert>
 </mapper>
