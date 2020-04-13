@@ -14,4 +14,5 @@ public interface DispatcherProjectService {
 
      int createDispatcherProject(DispatcherProjectVO dispatcherProjectVO);
      List queryDispatcherProjectList();
+     String queryDepartmentNameById(String id);
 }

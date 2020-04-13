@@ -4,6 +4,7 @@
 <mapper namespace="com.hxp.dao.DispatcherProjectDAO">
         <resultMap id="BaseResultMap" type="com.hxp.vo.DispatcherProjectVO">
                 <result column="id" property="id"/>
+                <result column="department_name" property="departmentName"/>
                 <result column="username" property="username"/>
                 <result column="job_name" property="jobName"/>
                 <result column="main_jar" property="mainJar"/>
@@ -18,18 +19,18 @@
                 dispatcher_project
         </sql>
         <sql id="base_column_list">
-            id,username,job_name,main_jar,dependency_jar,main_class,job_parameter,finished_notify,ctime,mtime
+            id,department_name,username,job_name,main_jar,dependency_jar,main_class,job_parameter,finished_notify,ctime,mtime
         </sql>
 
         <sql id="insert_columns">
-            (username,job_name,main_jar,dependency_jar,main_class,job_parameter,finished_notify,ctime,mtime)
+            (department_name,username,job_name,main_jar,dependency_jar,main_class,job_parameter,finished_notify,ctime,mtime)
         </sql>
         <insert id="createDispatcherProject" useGeneratedKeys="true" keyProperty="id">
                 insert into
                 <include refid="table_name"/>
                 <include refid="insert_columns" />
                 values(
-                #{username},#{jobName},#{mainJar},#{dependencyJar},#{mainClass},#{jobParameter},#{finishedNotify},current_time,current_time
+                #{department_name},#{username},#{jobName},#{mainJar},#{dependencyJar},#{mainClass},#{jobParameter},#{finishedNotify},current_time,current_time
                 )
         </insert>
 

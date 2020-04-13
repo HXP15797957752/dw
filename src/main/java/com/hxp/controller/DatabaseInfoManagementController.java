@@ -1,5 +1,6 @@
 package com.hxp.controller;
 
+import com.hxp.utils.ConnectionTestUtil;
 import com.hxp.service.DatabaseInfoManagementService;
 import com.hxp.vo.DatabaseInfoVO;
 import com.hxp.vo.UserVO;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,13 +54,30 @@ public class DatabaseInfoManagementController {
 
     }*/
 
+    /**
+     * 根据id更新数据库信息
+     * @param databaseInfo
+     * @param userVO
+     * @return
+     */
     @RequestMapping("/databaseinfo/edit")
     public String editDatabaseInfo(DatabaseInfoVO databaseInfo, UserVO userVO){
+        databaseInfoManagementService.editDatabaseInfo(databaseInfo);
         return null;
     }
 
+    /**
+     * 根据id删除数据库信息
+     * @param databaseInfo
+     */
     @RequestMapping("/databaseinfo/delete")
     public  void deleteDatabaseInfo(DatabaseInfoVO databaseInfo){
+        databaseInfoManagementService.deleteDatabaseInfo(databaseInfo);
+    }
 
+    @RequestMapping("/connectionTest")
+    public void connectionTest(DatabaseInfoVO databaseInfoVO){
+        ConnectionTestUtil.connectionTest(databaseInfoVO.getIp(), databaseInfoVO.getPort(),
+                databaseInfoVO.getUsername(), databaseInfoVO.getPassword());
     }
 }

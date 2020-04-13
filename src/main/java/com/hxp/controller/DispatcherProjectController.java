@@ -34,8 +34,10 @@ public class DispatcherProjectController {
     public String  createDispatcherProject(DispatcherProjectVO dispatcherProjectVO, HttpServletRequest request){
         UserVO user = (UserVO) request.getSession().getAttribute("user");
         dispatcherProjectVO.setUsername(user.getUsername());
+        String departmentName = dispatcherProjectService.queryDepartmentNameById(user.getDepartmentId());
+        dispatcherProjectVO.setDepartmentName(departmentName);
         dispatcherProjectService.createDispatcherProject(dispatcherProjectVO);
-        return "/dispatcher-project";
+        return "/dispatcher/query";
     }
 
     @GetMapping("/dispatcher/query")
@@ -49,6 +51,7 @@ public class DispatcherProjectController {
     @RequestMapping("/dispatcher/execute")
     public void executeDispatcherProject(ProjectInfoVO projectInfoVO){
         //TODO 周期调度 手动调度
+        //TODO 调用spark脚本执行任务
     }
 
 

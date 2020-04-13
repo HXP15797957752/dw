@@ -44,4 +44,18 @@
         <include refid="table_name"/>
     </select>
 
+    <delete id="deleteDatabaseInfo" >
+        delete from
+        <include refid="table_name"/>
+        where
+        id = #{id}
+    </delete>
+
+    <update id="editDatabaseInfo">
+        update
+        <include refid="table_name"/>
+        set database_description = #{database_description},ip = #{ip},port = #{port},username = #{username},
+        password = #{password},mtime = current_timestamp
+        where id = #{id}
+    </update>
 </mapper>

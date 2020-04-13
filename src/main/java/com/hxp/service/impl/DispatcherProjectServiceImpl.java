@@ -1,5 +1,6 @@
 package com.hxp.service.impl;
 
+import com.hxp.dao.DepartmentDAO;
 import com.hxp.dao.DispatcherProjectDAO;
 import com.hxp.service.DispatcherProjectService;
 import com.hxp.vo.DispatcherProjectVO;
@@ -22,8 +23,15 @@ public class DispatcherProjectServiceImpl implements DispatcherProjectService {
     @Autowired
     public DispatcherProjectDAO dispatcherProjectDAO;
 
+    @Autowired
+    DepartmentDAO departmentDAO;
+
+    public String queryDepartmentNameById(String id){
+        String departmentName = departmentDAO.queryDepartmentNameById(id);
+        return departmentName;
+    }
+
     public int createDispatcherProject(DispatcherProjectVO dispatcherProjectVO) {
-        //TODO 获取对应的部门名称
         int result = dispatcherProjectDAO.createDispatcherProject(dispatcherProjectVO);
         return result;
     }

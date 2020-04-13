@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxp.dao.DepartmentDAO">
+        <resultMap id="BaseResultMap" type="com.hxp.vo.DepartmentVO">
+                <result column="id" property="id"/>
+                <result column="department_name" property="departmentName"/>
+                <result column="owner" property="owner"/>
+                <result column="ctime" property="ctime"/>
+                <result column="mtime" property="mtime"/>
+        </resultMap>
+        <sql id="table_name">
+                resource
+        </sql>
+        <sql id="base_column_list">
+            id,department_name,owner,ctime,mtime
+        </sql>
+
+        <sql id="insert_columns">
+            (department_name,owner,ctime,mtime)
+        </sql>
+        <insert id="insertDepartment" useGeneratedKeys="true" keyProperty="id">
+                insert into
+                <include refid="table_name"/>
+                <include refid="insert_columns" />
+                values(
+                #{departmentName},#{owner},current_time,current_time
+                )
+        </insert>
+
+        <select id="queryDepartmentNameById">
+                select
+                 department_name
+                from
+                <include refid="table_name"/>
+                where id = #{id}
+        </select>
+</mapper>

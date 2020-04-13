@@ -10,4 +10,6 @@ import java.util.List;
 public interface DatabaseInfoManagementService {
     boolean addDatabaseInfo(List<DatabaseInfoVO> databaseInfoVOList);
     List<DatabaseInfoVO> queryDatabaseInfoList();
+    void deleteDatabaseInfo(DatabaseInfoVO databaseInfoVO);
+    void editDatabaseInfo(DatabaseInfoVO databaseInfoVO);
 }

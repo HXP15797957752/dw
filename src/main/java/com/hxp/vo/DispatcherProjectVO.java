@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class DispatcherProjectVO {
     private int id;//logId
+    private String departmentName;
     private String username;
     private String jobName;
     private String mainJar;
@@ -23,6 +24,14 @@ public class DispatcherProjectVO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public String getUsername() {
@@ -101,6 +110,7 @@ public class DispatcherProjectVO {
     public String toString() {
         return "DispatcherProjectVO{" +
                 "id=" + id +
+                ", departmentName='" + departmentName + '\'' +
                 ", username='" + username + '\'' +
                 ", jobName='" + jobName + '\'' +
                 ", mainJar='" + mainJar + '\'' +

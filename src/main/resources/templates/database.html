@@ -1408,6 +1408,7 @@
                                         <th>操作</th>
                                     </tr>
                                     <tr th:each="item:${databaseInfoList}">
+                                        <td style="display:none" th:text="${item.id}"></td>
                                         <td th:text="${item.databaseDescription}"></td>
                                         <td th:text="${item.ip}"></td>
                                         <td th:text="${item.port}"> </td>

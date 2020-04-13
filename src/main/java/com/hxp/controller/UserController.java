@@ -35,11 +35,12 @@ public class UserController {
     @PostMapping("/login")
     public String  login(UserVO userVO, Model model, HttpServletRequest request){
         UserVO resultUserVo = userService.getUserByUsername(userVO);
-        if(resultUserVo.getUsername().equals(userVO.getUsername())){
+        if(resultUserVo.getUsername().equals(userVO.getUsername()) &&
+                resultUserVo.getPassword().equals(userVO.getPassword())){
             LOGGER.info("{}登录成功....",userVO.getUsername());
             //model.addAttribute("user", resultUserVo);
             HttpSession session = request.getSession();
-            session.setAttribute("user", userVO);
+            session.setAttribute("user", resultUserVo);
             return "/index";
         }
         LOGGER.warn("{}登录失败,请重试....",userVO.getUsername());
@@ -49,18 +50,17 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(UserVO userVO, @RequestParam("repeatPassword") String repeatPassword, Model model){
-        System.out.println("=========="+userVO.toString()+"-======="+repeatPassword);
+        System.out.println("==========" + userVO.toString()+ "-=======" + repeatPassword);
         if(!(userVO.getPassword().equals(repeatPassword))){
             model.addAttribute("msg", "两次密码不一致！");
             return "/register";
         }
         String  result = userService.register(userVO);
-        System.out.println("==========" + result);
         LOGGER.debug("======" + result);
         if(result.equals("success")){
             return "/login";
         }else{
-            //TODO 处理异常信息 进行回显
+            model.addAttribute("msg", result);
             return "/register";
         }
     }
@@ -115,5 +115,10 @@ public class UserController {
         return "/resource";
     }
 
+    @GetMapping("/loginout")
+    public String  loginout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "/login";
+    }
 
 }

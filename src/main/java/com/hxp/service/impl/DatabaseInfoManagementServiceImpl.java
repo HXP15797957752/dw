@@ -40,4 +40,14 @@ public class DatabaseInfoManagementServiceImpl implements DatabaseInfoManagement
         }
         //return databaseInfoManagementDAO.queryDatabaseInfoList();
     }
+
+    @Override
+    public void deleteDatabaseInfo(DatabaseInfoVO databaseInfoVO) {
+        databaseInfoManagementDAO.deleteDatabaseInfo(databaseInfoVO);
+    }
+
+    @Override
+    public void editDatabaseInfo(DatabaseInfoVO databaseInfoVO) {
+        databaseInfoManagementDAO.editDatabaseInfo(databaseInfoVO);
+    }
 }

@@ -87,17 +87,17 @@
                                 <span class="mini-click-non">数据开发</span>
                             </a>
                             <ul class="submenu-angle" aria-expanded="true">
-                                <li><a title="调度项目" th:href="@{dispatcher-project}"><span class="mini-sub-pro">调度项目</span></a></li>
-                                <li><a title="SQL 查询" th:href="@{sql}"><span class="mini-sub-pro">SQL 查询</span></a></li>
-                                <li><a title="资源管理" th:href="@{resource}"><span class="mini-sub-pro">资源管理</span></a></li>
+                                <li><a title="调度项目" th:href="@{/dispatcher-project}"><span class="mini-sub-pro">调度项目</span></a></li>
+                                <li><a title="SQL 查询" th:href="@{/sql}"><span class="mini-sub-pro">SQL 查询</span></a></li>
+                                <li><a title="资源管理" th:href="@{/resource}"><span class="mini-sub-pro">资源管理</span></a></li>
                             </ul>
                         </li>
                         <li>
                             <a class="has-arrow" href="all-professors.html" aria-expanded="false"><span class="educate-icon educate-professor icon-wrap"></span> <span class="mini-click-non">数据集成</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="已上线任务列表" th:href="@{online-list}"><span class="mini-sub-pro">已上线任务列表</span></a></li>
-                                <li><a title="集成任务管理" th:href="@{integration-task}"><span class="mini-sub-pro">集成任务管理</span></a></li>
-                                <li><a title="数据库信息管理" th:href="@{database}"><span class="mini-sub-pro">数据库信息管理</span></a></li>
+                                <li><a title="已上线任务列表" th:href="@{/online-list}"><span class="mini-sub-pro">已上线任务列表</span></a></li>
+                                <li><a title="集成任务管理" th:href="@{/integration-task}"><span class="mini-sub-pro">集成任务管理</span></a></li>
+                                <li><a title="数据库信息管理" th:href="@{/database}"><span class="mini-sub-pro">数据库信息管理</span></a></li>
                             </ul>
                         </li>
                         <li id="removable">
@@ -1028,9 +1028,18 @@
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-status-wrap">
                             <!--<h4>Library List</h4>-->
-                            <div class="add-product" style="float:right">
-                                <button type="button" class="btn btn-info dropdown-toggle"  aria-haspopup="true" aria-expanded="false">新建文件夹</button>
-                                <button type="button" class="btn btn-info dropdown-toggle"  aria-haspopup="true" aria-expanded="false">上传资源</button>
+                            <form th:action="@{/resource/uploadfile}" method="post" enctype="multipart/form-data">
+                            <div class="col-lg-4">
+                                <input type="file" id="file" name="file" th:type="file">
+                                <button type="submit" class="btn btn-info dropdown-toggle"  aria-haspopup="true" aria-expanded="false">上传资源</button>
+                            </div>
+
+                            </form>
+                            <div class="add-product col-lg-8" style="float:right">
+                                <form th:action="@{/resource/createdir}" method="post">
+                                    <input type="input" id="dir" name="dirname">
+                                    <button type="submit" class="btn btn-info dropdown-toggle"  aria-haspopup="true" aria-expanded="false">新建文件夹</button>
+                                </form>
                             </div>
                             <div class="asset-inner">
                                 <table>

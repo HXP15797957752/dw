@@ -19,4 +19,6 @@ public interface DatabaseInfoManagementDAO {
      */
     int addDatabaseInfo(List<DatabaseInfoVO> list);
     List queryDatabaseInfoList();
+    void deleteDatabaseInfo(DatabaseInfoVO databaseInfoVO);
+    void editDatabaseInfo(DatabaseInfoVO databaseInfoVO);
 }

@@ -37,8 +37,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public String register(UserVO userVO) {
         String msg = "success";
-        //TODO 先校验是否存在用户
-
+        UserVO userByUsername = getUserByUsername(userVO);
+        if(userByUsername != null){
+            return "用户名重复，用户已注册";
+        }
         //注册
         int result = userDAO.register(userVO);
         if(result > 0){
