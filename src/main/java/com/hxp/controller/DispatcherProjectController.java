@@ -1,6 +1,7 @@
 package com.hxp.controller;
 
 import com.hxp.service.DispatcherProjectService;
+import com.hxp.utils.HDFSClient;
 import com.hxp.vo.DispatcherProjectVO;
 import com.hxp.vo.ProjectInfoVO;
 import com.hxp.vo.UserVO;
@@ -12,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,27 +30,35 @@ public class DispatcherProjectController {
     DispatcherProjectService dispatcherProjectService;
 
     @GetMapping("/dispatcher/create")
-    public String  toCreateDispatcherProject(ProjectInfoVO projectInfoVO){
-        //TODO 展示对应HDFS资源中的jar包路径
-        //获取用户对应的HDFS jar包
-        String uri = "hdfs://192.168.0.88:9000/";
-        /*Configuration configuration = new  Configuration();
-        FileSystem fileSystem = FileSystem.get(URI.create(uri), configuration);
-        //获取/test/input/目录下的所有文件和目录
-        FileStatus[] statuses = fs.listStatus(new Path("/test/input"));*/
-        //回显路径信息
+    public String  toCreateDispatcherProject(DispatcherProjectVO dispatcherProjectVO, Model model){
 
+        //获取用户对应的HDFS jar包
+        List<String> pathList = HDFSClient.getPathList("/jar");
+        model.addAttribute("pathList", pathList);
         return "/add-dispatcher-project";
     }
+    /*@RequestMapping("/add-dispatcher-project")
+    public String  toAdddispatcherProject(){
+        return "/add-dispatcher-project";
+    }*/
+
 
     @PostMapping("/dispatcher/create")
-    public String  createDispatcherProject(DispatcherProjectVO dispatcherProjectVO, HttpServletRequest request){
+    public void  createDispatcherProject(DispatcherProjectVO dispatcherProjectVO, HttpServletRequest request,
+                                         HttpServletResponse response){
         UserVO user = (UserVO) request.getSession().getAttribute("user");
         dispatcherProjectVO.setUsername(user.getUsername());
         String departmentName = dispatcherProjectService.queryDepartmentNameById(user.getDepartmentId());
         dispatcherProjectVO.setDepartmentName(departmentName);
         dispatcherProjectService.createDispatcherProject(dispatcherProjectVO);
-        return "/dispatcher/query";
+        //return "/dispatcher/query";
+        try{
+            response.sendRedirect("/dispatcher/query");
+        }catch (Exception e){
+            LOGGER.error("重定向出错.....");
+        }
+
+
     }
 
     @GetMapping("/dispatcher/query")
@@ -59,10 +70,16 @@ public class DispatcherProjectController {
 
 
     @RequestMapping("/dispatcher/execute")
-    public void executeDispatcherProject(ProjectInfoVO projectInfoVO){
+    public String executeDispatcherProject(DispatcherProjectVO dispatcherProjectVO){
         //TODO 周期调度 手动调度
         //TODO 调用spark脚本执行任务
         //通过projectVO获取执行参数
+        /*YOUR_SPARK_HOME/bin/spark-submit \
+        --class "SimpleApp" \
+        --master local[4] \
+        target/scala-2.12/simple-project_2.12-1.0.jar*/
+        String classPath =  dispatcherProjectVO.getMainClass();
+        String jarPath = dispatcherProjectVO.getMainJar();
 
         //配置loacl模式参数
 
@@ -71,6 +88,7 @@ public class DispatcherProjectController {
         //配置yarn模式参数
 
         //执行脚本
+        return null;
     }
 
 

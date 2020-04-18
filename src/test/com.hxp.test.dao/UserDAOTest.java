@@ -32,4 +32,9 @@ public class UserDAOTest extends BaseTest {
 
     }
 
+    @Test
+    public void test(){
+        System.out.print("Test IDEA");
+    }
+
 }

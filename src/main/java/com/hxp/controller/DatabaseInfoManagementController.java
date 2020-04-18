@@ -4,6 +4,7 @@ import com.hxp.utils.ConnectionTestUtil;
 import com.hxp.service.DatabaseInfoManagementService;
 import com.hxp.vo.DatabaseInfoVO;
 import com.hxp.vo.UserVO;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,9 +76,19 @@ public class DatabaseInfoManagementController {
         databaseInfoManagementService.deleteDatabaseInfo(databaseInfo);
     }
 
-    @RequestMapping("/connectionTest")
-    public void connectionTest(DatabaseInfoVO databaseInfoVO){
-        ConnectionTestUtil.connectionTest(databaseInfoVO.getIp(), databaseInfoVO.getPort(),
-                databaseInfoVO.getUsername(), databaseInfoVO.getPassword());
+    @PostMapping("/connectionTest")
+    @ResponseBody
+    public String connectionTest(DatabaseInfoVO databaseInfoVO, String databaseName){
+        String ip = databaseInfoVO.getIp();
+        int port = databaseInfoVO.getPort();
+        //String databaseName = databaseInfoVO.
+        //TODO String password = databaseInfoManagementService.getPasswordByIpAndPort(ip, String.valueOf(port));
+        String username = databaseInfoVO.getUsername();
+        String password = databaseInfoVO.getPassword();
+        String url = "jdbc:mysql://" + ip + ":" + port + "/" + databaseName +
+                "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        LOGGER.info(url);
+        Boolean result = ConnectionTestUtil.connectionTest(url,username, password);
+        return result?"连接成功！":"连接失败！";
     }
 }

@@ -12,4 +12,5 @@ public interface DatabaseInfoManagementService {
     List<DatabaseInfoVO> queryDatabaseInfoList();
     void deleteDatabaseInfo(DatabaseInfoVO databaseInfoVO);
     void editDatabaseInfo(DatabaseInfoVO databaseInfoVO);
+    String getPasswordByIpAndPort(String ip, String port);
 }

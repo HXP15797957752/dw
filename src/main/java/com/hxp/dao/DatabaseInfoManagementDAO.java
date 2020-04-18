@@ -21,4 +21,5 @@ public interface DatabaseInfoManagementDAO {
     List queryDatabaseInfoList();
     void deleteDatabaseInfo(DatabaseInfoVO databaseInfoVO);
     void editDatabaseInfo(DatabaseInfoVO databaseInfoVO);
+    String getPasswordByIpAndPort(String ip, String port);
 }

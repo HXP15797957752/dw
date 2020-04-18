@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxp.dao.IntegrationTaskDAO">
+        <resultMap id="BaseResultMap" type="com.hxp.vo.IntegrationTaskVO">
+                <result column="id" property="id"/>
+                <result column="username" property="username"/>
+                <result column="task_name" property="taskName"/>
+                <result column="data_source_description" property="dataSourceDescription"/>
+                <result column="department_name" property="departmentName"/>
+                <result column="project_name" property="projectName"/>
+                <result column="serve_name" property="serveName"/>
+                <result column="ip" property="ip"/>
+                <result column="port" property="port"/>
+                <result column="database_name" property="databaseName"/>
+                <result column="database_table_name" property="tableName"/>
+                <result column="has_sub_table" property="hasSubTable"/>
+                <result column="is_create_hive_table" property="isCreateHiveTable"/>
+                <result column="sync_strategy" property="syncStrategy"/>
+                <result column="ctime" property="ctime"/>
+                <result column="mtime" property="mtime"/>
+        </resultMap>
+        <sql id="table_name">
+                integration_task
+        </sql>
+        <sql id="base_column_list">
+            id,username,task_name,data_source_description,department_name,project_name,serve_name,ip,port,
+            database_name,database_table_name,has_sub_table,is_create_hive_table,sync_strategy,ctime,mtime
+        </sql>
+
+        <sql id="insert_columns">
+            (username,task_name,data_source_description,department_name,project_name,serve_name,ip,port,
+            database_name,database_table_name,has_sub_table,is_create_hive_table,sync_strategy,ctime,mtime)
+        </sql>
+        <insert id="createIntegrationTask" useGeneratedKeys="true" keyProperty="id">
+                insert into
+                <include refid="table_name"/>
+                <include refid="insert_columns" />
+                values(
+                #{username},#{taskName},#{dataSourceDescription},#{departmentName},#{projectName},
+                #{serveName},#{ip},#{port},#{databaseName},#{databaseNableName},#{hasSubTable},
+                #{isCreateHiveTable},#{syncStrategy},
+                CURRENT_TIMESTAMP ,CURRENT_TIMESTAMP
+                )
+        </insert>
+
+        <select id="queryAllIntegrationTask" resultMap="BaseResultMap">
+                select
+                <include refid="base_column_list"/>
+                from
+                <include refid="table_name"/>
+        </select>
+
+        <update id="updateOwner">
+                update
+                <include refid="table_name"/>
+                set username = #{username},mtime = current_timestamp
+                where id = #{id}
+        </update>
+
+</mapper>

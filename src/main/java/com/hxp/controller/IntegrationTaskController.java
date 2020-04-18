@@ -1,6 +1,9 @@
 package com.hxp.controller;
 
+import com.hxp.dao.DatabaseInfoManagementDAO;
+import com.hxp.service.DatabaseInfoManagementService;
 import com.hxp.service.IntegrationTaskService;
+import com.hxp.utils.ConnectionTestUtil;
 import com.hxp.vo.IntegrationTaskVO;
 import com.hxp.vo.UserVO;
 import org.slf4j.Logger;
@@ -8,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +26,8 @@ public class IntegrationTaskController {
 
     @Autowired
     IntegrationTaskService integrationTaskService;
+    @Autowired
+    DatabaseInfoManagementService databaseInfoManagementService;
 
     @RequestMapping("/integrationtask/query")
     public  String queryIntegrationTask(Object object){
@@ -70,5 +72,20 @@ public class IntegrationTaskController {
         }catch(Exception e){
             LOGGER.error("重定向出错........");
         }
+    }
+
+    @PostMapping("/integrationtask/testconnection")
+    @ResponseBody
+    public String testConnection(IntegrationTaskVO  integrationTaskVO){
+        String ip = integrationTaskVO.getIp();
+        int port = integrationTaskVO.getPort();
+        String databaseName = integrationTaskVO.getDatabaseName();
+        String url = "jdbc:mysql://" + ip + ":" + port + "/" + databaseName +
+                "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+        String username = integrationTaskVO.getUsername();
+        //根据ip port查询密码
+        String password = databaseInfoManagementService.getPasswordByIpAndPort(ip, String.valueOf(port));
+        Boolean result = ConnectionTestUtil.connectionTest(url,username,password);
+        return result?"连接成功！":"连接失败";
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,7 @@ public class SqlQueryController {
     private SqlQueryService sqlQueryService;
 
     @RequestMapping("/sqlquery/check")
+    @ResponseBody
     public String checkSql(String sql){
         boolean result = false;
        try{
@@ -36,10 +38,10 @@ public class SqlQueryController {
     }
 
     @RequestMapping("/sqlquery/format")
+    @ResponseBody
     public String formatSql(String sql){
         String  resutlSql = sqlQueryService.formatSql(sql);
-
-        return null;
+        return resutlSql;
     }
 
     @RequestMapping("/sqlquery/execute")

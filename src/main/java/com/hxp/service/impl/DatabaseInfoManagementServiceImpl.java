@@ -50,4 +50,9 @@ public class DatabaseInfoManagementServiceImpl implements DatabaseInfoManagement
     public void editDatabaseInfo(DatabaseInfoVO databaseInfoVO) {
         databaseInfoManagementDAO.editDatabaseInfo(databaseInfoVO);
     }
+
+    @Override
+    public String getPasswordByIpAndPort(String ip, String port) {
+        return databaseInfoManagementDAO.getPasswordByIpAndPort(ip, port);
+    }
 }

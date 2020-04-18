@@ -1,9 +1,10 @@
 package com.hxp.controller;
 
 import com.hxp.service.ResourceManagerService;
-import com.hxp.vo.FileInfoVO;
+import com.hxp.utils.HDFSClient;
 import com.hxp.vo.ResourceVO;
 import com.hxp.vo.UserVO;
+import org.apache.hadoop.fs.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,8 +31,8 @@ public class ResourceManagerController {
 
     @PostMapping("/resource/createdir")
     public void creatDirectory(UserVO userVO, String dirname, HttpServletResponse response){
-        //TODO 在HDFS创建文件夹
 
+        HDFSClient.createHdfsDir(dirname);
         try{
             response.sendRedirect("/resource/query");
         }catch(Exception e){
@@ -53,8 +55,13 @@ public class ResourceManagerController {
         }
         resourceVO.setUsername(userVO.getUsername());
         resourceVO.setFileName(file.getOriginalFilename());
-        //TODO 将文件保存在HDFS
 
+        try {
+            Path sourcePath = new Path(file.getOriginalFilename());
+            HDFSClient.uploadFile(sourcePath, file);
+        }catch (Exception e){
+            LOGGER.error("HDFS保存文件失败！");
+        }
         resourceManagerService.insertFileRecord(resourceVO);
         try{
             response.sendRedirect("/resource/query");

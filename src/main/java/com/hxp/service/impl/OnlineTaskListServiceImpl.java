@@ -31,5 +31,6 @@ public class OnlineTaskListServiceImpl implements OnlineTaskListService {
     @Override
     public void excuteIntegrationTask(IntegrationTaskVO integrationTaskVO) {
         //TODO 执行集成任务
+
     }
 }

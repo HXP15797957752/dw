@@ -18,4 +18,10 @@ public class DatabseInfoManagementDAOTest extends BaseTest {
         System.out.print(list);
     }
 
+    @Test
+    public void getPassword(){
+        String result = databaseInfoManagementDAO.getPasswordByIpAndPort("10.13.69.32", "8080");
+        System.out.print(result);
+    }
+
 }
